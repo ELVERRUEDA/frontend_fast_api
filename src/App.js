@@ -8,6 +8,7 @@ function App() {
   const [nuevaTarea, setNuevaTarea] = useState('');
   const [modoEdicion, setModoEdicion] = useState(null);
   const [tareaEditada, setTareaEditada] = useState('');
+  const [horaTarea, setHoraTarea] = useState('');
 
   const fetchTareas = async () => {
     try {
@@ -37,9 +38,17 @@ function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         titulo: nuevaTarea,
-        descripcion: ''
-      })
-    });
+        descripcion: '',
+        hora: horaTarea
+  })
+});
+    <input
+        type="time"
+        value={horaTarea}
+        onChange={(e) => setHoraTarea(e.target.value)}
+        placeholder="Hora de ejecución"
+    />
+
 
     setNuevaTarea('');
     fetchTareas();
@@ -67,6 +76,8 @@ function App() {
     setModoEdicion(null);
     setTareaEditada('');
     fetchTareas();
+    <p><strong>Hora:</strong> {tarea.hora}</p>
+
   };
 
   return (
