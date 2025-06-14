@@ -6,9 +6,10 @@ const API_URL = 'http://127.0.0.1:8080';
 function App() {
   const [tareas, setTareas] = useState([]);
   const [nuevaTarea, setNuevaTarea] = useState('');
+  
+  const [horaTarea, setHoraTarea] = useState('');
   const [modoEdicion, setModoEdicion] = useState(null);
   const [tareaEditada, setTareaEditada] = useState('');
-  const [horaTarea, setHoraTarea] = useState('');
 
   const fetchTareas = async () => {
     try {
@@ -39,20 +40,16 @@ function App() {
       body: JSON.stringify({
         titulo: nuevaTarea,
         descripcion: '',
-        hora: horaTarea
-  })
-});
-    <input
-        type="time"
-        value={horaTarea}
-        onChange={(e) => setHoraTarea(e.target.value)}
-        placeholder="Hora de ejecución"
-    />
-
+        hora: horaTarea,
+        
+      })
+    });
 
     setNuevaTarea('');
+    setHoraTarea('');
     fetchTareas();
   };
+  
 
   const eliminarTarea = async (id) => {
     await fetch(`${API_URL}/tareas/${id}`, {
@@ -76,13 +73,11 @@ function App() {
     setModoEdicion(null);
     setTareaEditada('');
     fetchTareas();
-    <p><strong>Hora:</strong> {tarea.hora}</p>
-
   };
 
   return (
     <div className="container">
-      <h1>To-Do List</h1>
+      <h1>Programador de tareas</h1>
 
       <form onSubmit={(e) => { e.preventDefault(); agregarTarea(); }}>
         <input
@@ -90,6 +85,12 @@ function App() {
           value={nuevaTarea}
           onChange={(e) => setNuevaTarea(e.target.value)}
           placeholder="Escribe una tarea"
+        />
+        <input
+          type="time"
+          value={horaTarea}
+          onChange={(e) => setHoraTarea(e.target.value)}
+          placeholder="Hora de ejecución"
         />
         <button type="submit">Agregar</button>
       </form>
